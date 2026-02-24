@@ -36,9 +36,10 @@ export default function SignUpPage() {
 
         const supabase = createClient();
 
-        const redirectUrl = `${window.location.origin}/auth/callback`;
+        const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin;
+        const redirectUrl = `${siteUrl}/auth/callback`;
 
-        const { error: signUpError } = await supabase.auth.signUp({
+        const { data, error: signUpError } = await supabase.auth.signUp({
             email,
             password,
             options: {
@@ -52,6 +53,10 @@ export default function SignUpPage() {
 
         if (signUpError) {
             setError(signUpError.message);
+            setLoading(false);
+        } else if (data?.user?.identities?.length === 0) {
+            const { toast } = await import("sonner");
+            toast.error("This email is already registered. Please sign in instead.");
             setLoading(false);
         } else {
             setSuccess(true);
