@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Zap, Bot, FileText } from "lucide-react";
+import { Zap, Bot, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import dynamic from "next/dynamic";
@@ -158,7 +158,7 @@ export default function HeroSection() {
                         },
                     ].map((item, i) => (
                         <motion.div
-                            key={i}
+                            key={item.step}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.6 + i * 0.15 }}
@@ -191,8 +191,8 @@ export default function HeroSection() {
                         { label: "Tasks Completed", value: "53K+" },
                         { label: "Active Bots", value: "120+" },
                         { label: "Avg. Delivery", value: "<30s" },
-                    ].map((stat, i) => (
-                        <div key={i} className="text-center">
+                    ].map((stat) => (
+                        <div key={stat.label} className="text-center">
                             <p className="text-xl font-bold font-mono text-cyan-300">
                                 {stat.value}
                             </p>

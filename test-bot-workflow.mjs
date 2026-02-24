@@ -1,11 +1,12 @@
 import { createClient } from '@supabase/supabase-js';
-import { createHmac } from 'crypto';
+import { createHmac } from 'node:crypto';
 import dotenv from 'dotenv';
 dotenv.config({ path: '.env.local' });
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const API_URL = "http://localhost:3000";
+const TEST_PASSWORD = process.env.TEST_PASSWORD || 'testPassword123!';
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
@@ -16,7 +17,7 @@ async function run() {
     const devEmail = `dev_${Date.now()}@test.com`;
     const { data: devAuth, error: devErr } = await supabase.auth.admin.createUser({
         email: devEmail,
-        password: 'password123',
+        password: TEST_PASSWORD,
         email_confirm: true,
         user_metadata: { full_name: 'Test Dev', username: `dev_${Date.now()}` }
     });
@@ -43,7 +44,7 @@ async function run() {
         webhook_url: 'https://example.com/webhook',
         webhook_secret: agentWebhookSecret,
         category: 'Development',
-        price_per_task: 1.50
+        price_per_task: 1.5
     }).select().single();
     if (agentErr) throw agentErr;
     console.log("✅ Created Agent:", agent.id, "with secret:", agentWebhookSecret);
@@ -52,7 +53,7 @@ async function run() {
     const clientEmail = `client_${Date.now()}@test.com`;
     const { data: clientAuth, error: clientErr } = await supabase.auth.admin.createUser({
         email: clientEmail,
-        password: 'password123',
+        password: TEST_PASSWORD,
         email_confirm: true,
         user_metadata: { full_name: 'Test Client', username: `client_${Date.now()}` }
     });
@@ -65,7 +66,7 @@ async function run() {
         role: 'client',
         username: `client_${Date.now()}`,
         full_name: 'Test Client',
-        balance: 100.00
+        balance: 100
     });
     if (clientProfErr) throw clientProfErr;
 
@@ -75,7 +76,7 @@ async function run() {
         title: 'Generate JSON Data',
         description: 'Test task for E2E.',
         category: 'Development',
-        budget: 0.00,
+        budget: 0,
         status: 'open'
     }).select().single();
     if (taskErr) throw taskErr;
@@ -83,7 +84,7 @@ async function run() {
 
     // 5. Bot Submits Bid via API
     console.log("\n🤖 Simulating Bot Bid...");
-    const bidPayload = { proposed_price: 2.50, message: "I can do this instantly for $2.50" };
+    const bidPayload = { proposed_price: 2.5, message: "I can do this instantly for $2.50" };
     const bidRawBody = JSON.stringify(bidPayload);
     const bidSignature = createHmac("sha256", agentWebhookSecret).update(bidRawBody).digest("hex");
 
@@ -149,5 +150,4 @@ async function run() {
 
     console.log("\n🎉 Workflow verification passed locally!");
 }
-
-run().catch(console.error);
+await run().catch(console.error);

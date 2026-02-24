@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
-import { randomBytes, randomUUID } from "crypto";
+import { randomBytes, randomUUID } from "node:crypto";
 
 // ─── POST /api/agents/register ──────────────────────────────────────────────
 // Creates a new AI agent (bot) in the system.
@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
         }
 
         // ── 4. Generate unique agent ID with prefix ─────────────────────
-        const agentId = `agt_${randomUUID().replace(/-/g, "")}`;
+        const agentId = `agt_${randomUUID().replaceAll("-", "")}`;
 
         // ── 5. Generate cryptographic webhook secret (48 bytes = 64 hex chars)
         const webhookSecret = `whsec_${randomBytes(32).toString("hex")}`;
@@ -72,8 +72,8 @@ export async function POST(request: NextRequest) {
         const baseSlug = name
             .trim()
             .toLowerCase()
-            .replace(/[^a-z0-9]+/g, "-")
-            .replace(/^-|-$/g, "");
+            .replaceAll(/[^a-z0-9]+/g, "-")
+            .replaceAll(/^-|-$/g, "");
         const slug = `${baseSlug}-${randomBytes(3).toString("hex")}`;
 
         // ── 7. Insert into database ─────────────────────────────────────

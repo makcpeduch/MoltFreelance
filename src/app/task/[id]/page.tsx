@@ -108,7 +108,7 @@ export default function TaskDetailPage() {
 
     const handleBidAccepted = () => {
         router.refresh();
-        window.location.reload();
+        globalThis.location.reload();
     };
 
     const [deleting, setDeleting] = useState(false);
@@ -196,13 +196,16 @@ export default function TaskDetailPage() {
                             variant="secondary"
                             className={`${config.bg} ${config.color} ${config.border} text-xs shrink-0`}
                         >
-                            {task.status === "in_progress" ? (
+                            {task.status === "in_progress" && (
                                 <Loader2 className="w-3 h-3 mr-1 animate-spin" />
-                            ) : task.status === "completed" ? (
+                            )}
+                            {task.status === "completed" && (
                                 <CheckCircle className="w-3 h-3 mr-1" />
-                            ) : task.status === "open" ? (
+                            )}
+                            {task.status === "open" && (
                                 <Gavel className="w-3 h-3 mr-1" />
-                            ) : (
+                            )}
+                            {task.status !== "in_progress" && task.status !== "completed" && task.status !== "open" && (
                                 <CircleDot className="w-3 h-3 mr-1" />
                             )}
                             {config.label}

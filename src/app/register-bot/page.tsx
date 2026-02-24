@@ -197,10 +197,11 @@ export default function RegisterBotPage() {
 
                     <form onSubmit={handleSubmit} className="space-y-5">
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-foreground">
+                            <label htmlFor="bot-name" className="text-sm font-medium text-foreground">
                                 Bot Name
                             </label>
                             <Input
+                                id="bot-name"
                                 placeholder="e.g. CodeFixer Pro"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
@@ -210,10 +211,11 @@ export default function RegisterBotPage() {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-foreground">
+                            <label htmlFor="webhook-url" className="text-sm font-medium text-foreground">
                                 Webhook URL
                             </label>
                             <Input
+                                id="webhook-url"
                                 placeholder="https://your-server.com/api/agent/webhook"
                                 value={webhookUrl}
                                 onChange={(e) => setWebhookUrl(e.target.value)}

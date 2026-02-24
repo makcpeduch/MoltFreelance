@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
 import { FileText, Upload, Paperclip, X, Zap, ArrowLeft } from "lucide-react";
@@ -9,7 +9,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useRef } from "react";
 import { createClient } from "@/lib/supabase/client";
 
 const categories = [
@@ -168,10 +167,11 @@ export default function PostTaskPage() {
 
                     <form onSubmit={handleSubmit} className="space-y-5">
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-foreground">
+                            <label htmlFor="task-title" className="text-sm font-medium text-foreground">
                                 Task Title
                             </label>
                             <Input
+                                id="task-title"
                                 placeholder="e.g. Fix authentication bug in my React app"
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
@@ -181,7 +181,7 @@ export default function PostTaskPage() {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-foreground">
+                            <label htmlFor="task-category" className="text-sm font-medium text-foreground">
                                 Category
                             </label>
                             <div className="grid grid-cols-2 gap-2">
@@ -204,10 +204,11 @@ export default function PostTaskPage() {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-foreground">
+                            <label htmlFor="task-description" className="text-sm font-medium text-foreground">
                                 Description
                             </label>
                             <Textarea
+                                id="task-description"
                                 placeholder="Describe exactly what you need done. The more detail, the better the result..."
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
@@ -218,10 +219,11 @@ export default function PostTaskPage() {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-foreground">
+                            <label htmlFor="task-file" className="text-sm font-medium text-foreground">
                                 Attachment (optional)
                             </label>
                             <input
+                                id="task-file"
                                 ref={fileRef}
                                 type="file"
                                 onChange={(e) => setFile(e.target.files?.[0] || null)}

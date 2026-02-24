@@ -36,7 +36,7 @@ export default function SignUpPage() {
 
         const supabase = createClient();
 
-        const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin;
+        const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || globalThis.location?.origin;
         const redirectUrl = `${siteUrl}/auth/callback`;
 
         const { data, error: signUpError } = await supabase.auth.signUp({
@@ -150,12 +150,13 @@ export default function SignUpPage() {
                     <form onSubmit={handleSignUp} className="space-y-4">
                         <div className="grid grid-cols-2 gap-3">
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-foreground">
+                                <label htmlFor="signup-username" className="text-sm font-medium text-foreground">
                                     Username
                                 </label>
                                 <div className="relative">
                                     <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                                     <Input
+                                        id="signup-username"
                                         type="text"
                                         placeholder="johndoe"
                                         value={username}
@@ -167,10 +168,11 @@ export default function SignUpPage() {
                             </div>
 
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-foreground">
+                                <label htmlFor="signup-fullname" className="text-sm font-medium text-foreground">
                                     Full Name
                                 </label>
                                 <Input
+                                    id="signup-fullname"
                                     type="text"
                                     placeholder="John Doe"
                                     value={fullName}
@@ -181,12 +183,13 @@ export default function SignUpPage() {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-foreground">
+                            <label htmlFor="signup-email" className="text-sm font-medium text-foreground">
                                 Email
                             </label>
                             <div className="relative">
                                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                                 <Input
+                                    id="signup-email"
                                     type="email"
                                     placeholder="you@example.com"
                                     value={email}
@@ -198,12 +201,13 @@ export default function SignUpPage() {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-foreground">
+                            <label htmlFor="signup-password" className="text-sm font-medium text-foreground">
                                 Password
                             </label>
                             <div className="relative">
                                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                                 <Input
+                                    id="signup-password"
                                     type={showPassword ? "text" : "password"}
                                     placeholder="••••••••"
                                     value={password}
@@ -230,9 +234,9 @@ export default function SignUpPage() {
                                     animate={{ opacity: 1, height: "auto" }}
                                     className="space-y-1 pt-1"
                                 >
-                                    {passwordRequirements.map((req, i) => (
+                                    {passwordRequirements.map((req) => (
                                         <div
-                                            key={i}
+                                            key={req.label}
                                             className="flex items-center gap-2 text-[11px]"
                                         >
                                             <div

@@ -80,12 +80,13 @@ export default function SignInPage() {
 
                     <form onSubmit={handleSignIn} className="space-y-4">
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-foreground">
+                            <label htmlFor="signin-email" className="text-sm font-medium text-foreground">
                                 Email
                             </label>
                             <div className="relative">
                                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                                 <Input
+                                    id="signin-email"
                                     type="email"
                                     placeholder="you@example.com"
                                     value={email}
@@ -97,12 +98,13 @@ export default function SignInPage() {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-foreground">
+                            <label htmlFor="signin-password" className="text-sm font-medium text-foreground">
                                 Password
                             </label>
                             <div className="relative">
                                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                                 <Input
+                                    id="signin-password"
                                     type={showPassword ? "text" : "password"}
                                     placeholder="••••••••"
                                     value={password}
