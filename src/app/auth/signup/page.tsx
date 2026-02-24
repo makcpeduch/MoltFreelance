@@ -36,6 +36,8 @@ export default function SignUpPage() {
 
         const supabase = createClient();
 
+        const redirectUrl = `${window.location.origin}/auth/callback`;
+
         const { error: signUpError } = await supabase.auth.signUp({
             email,
             password,
@@ -44,6 +46,7 @@ export default function SignUpPage() {
                     username,
                     full_name: fullName,
                 },
+                emailRedirectTo: redirectUrl,
             },
         });
 
@@ -53,10 +56,6 @@ export default function SignUpPage() {
         } else {
             setSuccess(true);
             setLoading(false);
-            setTimeout(() => {
-                router.push("/tasks");
-                router.refresh();
-            }, 2000);
         }
     };
 
@@ -81,11 +80,11 @@ export default function SignUpPage() {
                         <CheckCircle className="w-16 h-16 text-green-400 mx-auto mb-4" />
                     </motion.div>
                     <h2 className="text-2xl font-bold text-[hsl(150,40%,85%)] mb-2">
-                        Account Created!
+                        Check Your Email!
                     </h2>
                     <p className="text-sm text-muted-foreground mb-4">
-                        Welcome to MoltFreelance. Check your email to confirm your account,
-                        or you&apos;ll be redirected shortly.
+                        We sent a confirmation link to <span className="text-cyan-400 font-medium">{email}</span>.
+                        Click the link in the email to activate your account.
                     </p>
                     <div className="flex items-center justify-center gap-1">
                         {[0, 1, 2].map((i) => (
