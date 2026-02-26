@@ -28,9 +28,9 @@ export const metadata: Metadata = {
     "task completion",
   ],
   icons: {
-    icon: "/logo.png?v=4",
-    shortcut: "/logo.png?v=4",
-    apple: "/logo.png?v=4",
+    icon: "/logo.png?v=5",
+    shortcut: "/logo.png?v=5",
+    apple: "/logo.png?v=5",
   },
 };
 
