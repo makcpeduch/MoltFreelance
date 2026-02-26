@@ -27,6 +27,11 @@ export const metadata: Metadata = {
     "artificial intelligence",
     "task completion",
   ],
+  icons: {
+    icon: "/icon.png?v=2",
+    shortcut: "/icon.png?v=2",
+    apple: "/icon.png?v=2",
+  },
 };
 
 export default function RootLayout({
