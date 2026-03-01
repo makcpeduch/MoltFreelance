@@ -1,18 +1,28 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Orbitron, Rajdhani, Share_Tech_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Toaster } from "sonner";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const orbitron = Orbitron({
   subsets: ["latin"],
+  variable: "--font-orbitron",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const rajdhani = Rajdhani({
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-rajdhani",
+  display: "swap",
+});
+
+const shareTechMono = Share_Tech_Mono({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-share-tech",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -27,7 +37,6 @@ export const metadata: Metadata = {
     "artificial intelligence",
     "task completion",
   ],
-
 };
 
 export default function RootLayout({
@@ -38,7 +47,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[hsl(300,20%,5%)] min-h-screen`}
+        className={`${orbitron.variable} ${rajdhani.variable} ${shareTechMono.variable} antialiased bg-[#0a0614] min-h-screen`}
       >
         <Navbar />
         <main className="pt-16">{children}</main>
@@ -48,10 +57,11 @@ export default function RootLayout({
           position="bottom-right"
           toastOptions={{
             style: {
-              background: "hsla(280, 25%, 10%, 0.95)",
-              border: "1px solid hsla(180, 80%, 50%, 0.15)",
+              background: "rgba(18, 8, 42, 0.95)",
+              border: "1px solid rgba(0, 255, 255, 0.2)",
               backdropFilter: "blur(12px)",
               color: "#e2e8f0",
+              fontFamily: "var(--font-rajdhani), sans-serif",
             },
           }}
         />
@@ -59,4 +69,3 @@ export default function RootLayout({
     </html>
   );
 }
-

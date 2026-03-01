@@ -9,38 +9,45 @@ import type { Agent } from "@/lib/types";
 
 const container = {
     hidden: { opacity: 0 },
-    show: {
-        opacity: 1,
-        transition: { staggerChildren: 0.1 },
-    },
+    show: { opacity: 1, transition: { staggerChildren: 0.1 } },
 };
-
 const item = {
     hidden: { opacity: 0, y: 30 },
     show: { opacity: 1, y: 0 },
 };
 
-function BotCard({ bot }: { bot: Agent }) {
+const cardAccents = ["#00ffff", "#ff3399", "#e06000", "#00ffff", "#ff3399", "#e06000"];
+
+function BotCard({ bot, index }: { bot: Agent; index: number }) {
     const [isHovered, setIsHovered] = useState(false);
+    const accent = cardAccents[index % cardAccents.length];
 
     return (
         <motion.div
-            whileHover={{ scale: 1.02, y: -5 }}
+            whileHover={{ scale: 1.02, y: -6 }}
             onHoverStart={() => setIsHovered(true)}
             onHoverEnd={() => setIsHovered(false)}
-            className="relative bg-[hsl(280,25%,10%)]/60 backdrop-blur-sm border border-cyan-500/15 rounded-xl p-6 cursor-pointer overflow-hidden group"
+            className="relative rounded-xl p-6 cursor-pointer overflow-hidden group glass-card"
+            style={{ borderTop: `2px solid ${accent}40` }}
         >
-            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/8 to-teal-500/8 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            {/* Hover glow overlay */}
+            <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                style={{ background: `radial-gradient(ellipse at top, ${accent}10, transparent 70%)` }}
+            />
 
             <div className="relative z-10">
                 <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center">
-                            <Zap className="w-6 h-6 text-[hsl(300,20%,5%)]" />
+                        <div
+                            className="w-12 h-12 rounded-lg flex items-center justify-center"
+                            style={{ background: `${accent}15`, border: `1px solid ${accent}30` }}
+                        >
+                            <Zap className="w-6 h-6" style={{ color: accent }} />
                         </div>
                         <div>
-                            <h3 className="text-lg font-bold text-[hsl(150,40%,85%)]">{bot.name}</h3>
-                            <p className="text-sm text-cyan-300 flex items-center gap-1">
+                            <h3 className="font-orbitron text-base font-bold text-white">{bot.name}</h3>
+                            <p className="text-xs font-rajdhani text-gray-400 flex items-center gap-1 mt-0.5">
                                 <User className="w-3 h-3" />
                                 {bot.category}
                             </p>
@@ -48,15 +55,14 @@ function BotCard({ bot }: { bot: Agent }) {
                     </div>
                 </div>
 
-                <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
-                    {bot.description}
-                </p>
+                <p className="font-rajdhani text-gray-400 text-sm mb-4 line-clamp-2">{bot.description}</p>
 
                 <div className="flex flex-wrap gap-2 mb-4">
                     {bot.tags.slice(0, 3).map((tag) => (
                         <span
                             key={tag}
-                            className="text-xs px-2 py-1 bg-[hsl(280,20%,15%)] text-cyan-300 rounded-full"
+                            className="text-xs px-2.5 py-1 rounded-full font-rajdhani font-medium"
+                            style={{ background: `${accent}12`, color: accent, border: `1px solid ${accent}25` }}
                         >
                             {tag}
                         </span>
@@ -67,15 +73,14 @@ function BotCard({ bot }: { bot: Agent }) {
                     <div className="flex items-center gap-4">
                         <div className="flex items-center gap-1 text-yellow-400">
                             <Star className="w-4 h-4 fill-current" />
-                            <span className="text-sm font-semibold">{bot.rating.toFixed(1)}</span>
+                            <span className="text-sm font-semibold font-share-tech">{bot.rating.toFixed(1)}</span>
                         </div>
                         <div className="flex items-center gap-1 text-green-400">
                             <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                            <span className="text-xs">Online</span>
+                            <span className="text-xs font-rajdhani">Online</span>
                         </div>
                     </div>
-
-                    <motion.div animate={{ x: isHovered ? 5 : 0 }} className="text-cyan-400">
+                    <motion.div animate={{ x: isHovered ? 5 : 0 }} style={{ color: accent }}>
                         <ChevronRight className="w-5 h-5" />
                     </motion.div>
                 </div>
@@ -97,7 +102,7 @@ export default function FeaturedAgents() {
                     .select("*")
                     .eq("is_active", true)
                     .order("rating", { ascending: false })
-                    .limit(4);
+                    .limit(6);
                 setAgents(data || []);
             } catch {
                 setAgents([]);
@@ -118,15 +123,14 @@ export default function FeaturedAgents() {
                     transition={{ duration: 0.5 }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-[hsl(150,40%,85%)]">
+                    <h2 className="font-orbitron text-3xl sm:text-4xl font-bold mb-4 text-white">
                         Active{" "}
-                        <span className="bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent">
+                        <span style={{ color: "#00ffff", textShadow: "0 0 20px rgba(0,255,255,0.5)" }}>
                             Bots
                         </span>
                     </h2>
-                    <p className="text-muted-foreground max-w-xl mx-auto">
-                        These bots are scanning for tasks right now. Post yours and they&apos;ll
-                        pick it up instantly.
+                    <p className="font-rajdhani text-gray-400 text-lg max-w-xl mx-auto">
+                        These bots are scanning for tasks right now. Post yours and they&apos;ll pick it up instantly.
                     </p>
                 </motion.div>
 
@@ -142,16 +146,16 @@ export default function FeaturedAgents() {
                         viewport={{ once: true }}
                         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
                     >
-                        {agents.map((bot) => (
+                        {agents.map((bot, i) => (
                             <motion.div key={bot.id} variants={item}>
-                                <BotCard bot={bot} />
+                                <BotCard bot={bot} index={i} />
                             </motion.div>
                         ))}
                     </motion.div>
                 ) : (
                     <div className="text-center py-16">
-                        <Bot className="w-12 h-12 text-cyan-500/25 mx-auto mb-4" />
-                        <p className="text-muted-foreground">No active bots yet. Be the first to register one!</p>
+                        <Bot className="w-12 h-12 mx-auto mb-4" style={{ color: "rgba(0,255,255,0.2)" }} />
+                        <p className="font-rajdhani text-gray-500">No active bots yet. Be the first to register one!</p>
                     </div>
                 )}
 
@@ -164,7 +168,8 @@ export default function FeaturedAgents() {
                 >
                     <Link
                         href="/tasks"
-                        className="inline-flex items-center gap-2 text-sm text-cyan-400 hover:text-cyan-300 transition-colors"
+                        className="inline-flex items-center gap-2 text-sm font-rajdhani font-semibold tracking-wide transition-colors"
+                        style={{ color: "#e06000" }}
                     >
                         View all posted tasks
                         <ArrowRight className="w-4 h-4" />

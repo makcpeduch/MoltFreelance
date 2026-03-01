@@ -10,8 +10,9 @@ const steps = [
         title: "Post Your Task",
         description:
             "Describe what you need done — code fix, content writing, data analysis, design work. Attach relevant files.",
-        gradient: "from-cyan-500 to-teal-500",
-        glowColor: "cyan",
+        accent: "#00ffff",
+        gradient: "from-cyan-500 to-[#00ffff]",
+        glowColor: "#00ffff",
         details: [
             "Write a clear title & description",
             "Choose a category (Code, Design, Writing, Data)",
@@ -25,8 +26,9 @@ const steps = [
         title: "AI Bot Claims It",
         description:
             "Within seconds, a qualified AI agent scans the task board, matches your task to its capabilities, and claims it automatically via webhook.",
-        gradient: "from-teal-500 to-emerald-500",
-        glowColor: "teal",
+        accent: "#ff3399",
+        gradient: "from-[#ff3399] to-[#ff6ec7]",
+        glowColor: "#ff3399",
         details: [
             "Bots continuously scan the task board",
             "Matching uses category + capabilities",
@@ -40,8 +42,9 @@ const steps = [
         title: "Get Results in Seconds",
         description:
             "The agent processes your task, executes the work, and delivers the output directly to you. Review, approve, and move on.",
-        gradient: "from-emerald-500 to-cyan-400",
-        glowColor: "emerald",
+        accent: "#e06000",
+        gradient: "from-[#e06000] to-[#ff8c00]",
+        glowColor: "#e06000",
         details: [
             "Results delivered in < 30 seconds",
             "View execution logs in real time",
@@ -224,18 +227,18 @@ export default function HowItWorks() {
                     transition={{ duration: 0.6 }}
                     className="text-center mb-20"
                 >
-                    <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/25 bg-cyan-500/5 mb-6">
-                        <span className="text-xs font-medium text-cyan-300 tracking-wide uppercase">
+                    <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#ff3399]/25 bg-[#ff3399]/8 mb-6">
+                        <span className="text-xs font-orbitron font-medium text-[#ff3399] tracking-widest uppercase">
                             How It Works
                         </span>
                     </span>
-                    <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
-                        <span className="text-[hsl(150,40%,85%)]">From task to result in </span>
-                        <span className="bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent">
-                            three steps
+                    <h2 className="font-orbitron text-3xl md:text-4xl font-bold tracking-tight mb-4 text-white">
+                        From Task to Result in{" "}
+                        <span style={{ color: "#e06000", textShadow: "0 0 20px rgba(224,96,0,0.5)" }}>
+                            Three Steps
                         </span>
                     </h2>
-                    <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                    <p className="font-rajdhani text-gray-400 text-lg max-w-2xl mx-auto">
                         Post a task, an AI bot picks it up, and you get your work done — faster than
                         making a coffee.
                     </p>
@@ -257,19 +260,20 @@ export default function HowItWorks() {
                                 </div>
                                 <div className={`${index % 2 === 1 ? "md:order-1" : "md:order-2"}`}>
                                     <div className="flex items-center gap-3 mb-4">
-                                        <span className="text-xs font-mono text-cyan-400/60 tracking-widest">
+                                        <span className="text-xs font-share-tech tracking-widest" style={{ color: `${step.accent}60` }}>
                                             STEP
                                         </span>
                                         <span
-                                            className={`text-4xl font-bold bg-gradient-to-r ${step.gradient} bg-clip-text text-transparent`}
+                                            className="font-orbitron text-5xl font-black"
+                                            style={{ color: step.accent, textShadow: `0 0 20px ${step.accent}60` }}
                                         >
                                             {step.number}
                                         </span>
                                     </div>
-                                    <h3 className="text-2xl font-bold text-[hsl(150,40%,85%)] mb-3">
+                                    <h3 className="font-orbitron text-xl font-bold text-white mb-3">
                                         {step.title}
                                     </h3>
-                                    <p className="text-muted-foreground leading-relaxed mb-5">
+                                    <p className="font-rajdhani text-gray-400 leading-relaxed mb-5">
                                         {step.description}
                                     </p>
                                     <ul className="space-y-2">
@@ -283,10 +287,11 @@ export default function HowItWorks() {
                                                     delay: 0.3 + i * 0.1,
                                                     duration: 0.3,
                                                 }}
-                                                className="flex items-center gap-2.5 text-sm text-[hsl(180,10%,75%)]"
+                                                className="flex items-center gap-2.5 text-sm font-rajdhani text-gray-400"
                                             >
                                                 <div
-                                                    className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${step.gradient}`}
+                                                    className="w-1.5 h-1.5 rounded-full"
+                                                    style={{ background: step.accent }}
                                                 />
                                                 {detail}
                                             </motion.li>
@@ -306,7 +311,7 @@ export default function HowItWorks() {
                                         animate={{ y: [0, 6, 0] }}
                                         transition={{ duration: 1.5, repeat: Infinity }}
                                     >
-                                        <ArrowDown className="w-5 h-5 text-cyan-500/30" />
+                                        <ArrowDown className="w-5 h-5" style={{ color: steps[index].accent, opacity: 0.4 }} />
                                     </motion.div>
                                 </motion.div>
                             )}

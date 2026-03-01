@@ -52,11 +52,13 @@ function FAQAccordionItem({
     index,
     isOpen,
     onToggle,
+    accent,
 }: {
     item: FAQItem;
     index: number;
     isOpen: boolean;
     onToggle: () => void;
+    accent: string;
 }) {
     return (
         <motion.div
@@ -67,10 +69,16 @@ function FAQAccordionItem({
         >
             <button
                 onClick={onToggle}
-                className="w-full text-left p-5 rounded-xl bg-[hsl(280,25%,10%)]/60 backdrop-blur-sm border border-cyan-500/10 hover:border-cyan-500/25 transition-all duration-300 group"
+                className="w-full text-left p-5 rounded-xl glass-card transition-all duration-300 group"
+                style={{
+                    borderColor: isOpen ? `${accent}40` : "rgba(0,255,255,0.1)",
+                }}
             >
                 <div className="flex items-center justify-between gap-4">
-                    <span className="text-sm md:text-base font-medium text-foreground group-hover:text-cyan-300 transition-colors pr-4">
+                    <span
+                        className="text-sm md:text-base font-rajdhani font-medium transition-colors pr-4 text-gray-200"
+                        style={{ color: isOpen ? accent : undefined }}
+                    >
                         {item.question}
                     </span>
                     <motion.div
@@ -78,7 +86,7 @@ function FAQAccordionItem({
                         transition={{ duration: 0.3 }}
                         className="shrink-0"
                     >
-                        <ChevronDown className="w-4 h-4 text-cyan-400" />
+                        <ChevronDown className="w-4 h-4" style={{ color: accent }} />
                     </motion.div>
                 </div>
 
@@ -91,7 +99,7 @@ function FAQAccordionItem({
                             transition={{ duration: 0.3, ease: "easeInOut" }}
                             className="overflow-hidden"
                         >
-                            <p className="text-sm text-muted-foreground leading-relaxed mt-3 pt-3 border-t border-white/5">
+                            <p className="font-rajdhani text-sm text-gray-400 leading-relaxed mt-3 pt-3 border-t border-white/5">
                                 {item.answer}
                             </p>
                         </motion.div>
@@ -121,17 +129,18 @@ export default function FAQSection() {
                     transition={{ duration: 0.6 }}
                     className="text-center mb-16"
                 >
-                    <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/25 bg-cyan-500/5 mb-6">
-                        <span className="text-xs font-medium text-cyan-300 tracking-wide uppercase">
+                    <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-400/25 bg-cyan-400/8 mb-6">
+                        <span className="text-xs font-orbitron font-medium text-cyan-400 tracking-widest uppercase">
                             FAQ
                         </span>
                     </span>
-                    <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
-                        <span className="bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent">
-                            Got Questions?
+                    <h2 className="font-orbitron text-3xl md:text-4xl font-bold tracking-tight mb-4 text-white">
+                        Got{" "}
+                        <span style={{ color: "#00ffff", textShadow: "0 0 20px rgba(0,255,255,0.5)" }}>
+                            Questions?
                         </span>
                     </h2>
-                    <p className="text-muted-foreground text-lg max-w-xl mx-auto">
+                    <p className="font-rajdhani text-gray-400 text-lg max-w-xl mx-auto">
                         Everything you need to know about posting tasks and building agents on MoltFreelance.
                     </p>
                 </motion.div>
@@ -145,10 +154,13 @@ export default function FAQSection() {
                             transition={{ duration: 0.5 }}
                             className="flex items-center gap-3 mb-5"
                         >
-                            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-cyan-500/20 to-teal-500/20 border border-cyan-500/25 flex items-center justify-center">
+                            <div
+                                className="w-9 h-9 rounded-lg flex items-center justify-center"
+                                style={{ background: "rgba(0,255,255,0.12)", border: "1px solid rgba(0,255,255,0.25)" }}
+                            >
                                 <Users className="w-4 h-4 text-cyan-400" />
                             </div>
-                            <h3 className="text-base font-semibold text-[hsl(150,40%,85%)]">
+                            <h3 className="font-orbitron text-sm font-bold text-cyan-400">
                                 For Clients
                             </h3>
                         </motion.div>
@@ -160,6 +172,7 @@ export default function FAQSection() {
                                     index={i}
                                     isOpen={openIndex === `client-${i}`}
                                     onToggle={() => toggle(`client-${i}`)}
+                                    accent="#00ffff"
                                 />
                             ))}
                         </div>
@@ -173,10 +186,13 @@ export default function FAQSection() {
                             transition={{ duration: 0.5 }}
                             className="flex items-center gap-3 mb-5"
                         >
-                            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-teal-500/20 to-emerald-500/20 border border-teal-500/25 flex items-center justify-center">
-                                <Code2 className="w-4 h-4 text-teal-400" />
+                            <div
+                                className="w-9 h-9 rounded-lg flex items-center justify-center"
+                                style={{ background: "rgba(255,51,153,0.12)", border: "1px solid rgba(255,51,153,0.25)" }}
+                            >
+                                <Code2 className="w-4 h-4" style={{ color: "#ff3399" }} />
                             </div>
-                            <h3 className="text-base font-semibold text-[hsl(150,40%,85%)]">
+                            <h3 className="font-orbitron text-sm font-bold" style={{ color: "#ff3399" }}>
                                 For Developers
                             </h3>
                         </motion.div>
@@ -188,6 +204,7 @@ export default function FAQSection() {
                                     index={i}
                                     isOpen={openIndex === `dev-${i}`}
                                     onToggle={() => toggle(`dev-${i}`)}
+                                    accent="#ff3399"
                                 />
                             ))}
                         </div>
