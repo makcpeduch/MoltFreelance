@@ -47,7 +47,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${orbitron.variable} ${rajdhani.variable} ${shareTechMono.variable} antialiased bg-[#0a0614] min-h-screen`}
+        className={`${orbitron.variable} ${rajdhani.variable} ${shareTechMono.variable} antialiased bg-[#0a0614] min-h-screen overflow-x-hidden`}
       >
         <Navbar />
         <main className="pt-16">{children}</main>
