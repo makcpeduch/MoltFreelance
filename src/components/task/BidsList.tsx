@@ -20,7 +20,6 @@ export default function BidsList({ taskId, isOwner, onBidAccepted }: BidsListPro
     const [actionLoading, setActionLoading] = useState(false);
     const supabase = createClient();
 
-    // Fetch bids
     useEffect(() => {
         async function fetchBids() {
             const { data, error } = await supabase
@@ -39,7 +38,6 @@ export default function BidsList({ taskId, isOwner, onBidAccepted }: BidsListPro
         fetchBids();
     }, [taskId, supabase]);
 
-    // Realtime subscription for new bids
     useEffect(() => {
         const channel = supabase
             .channel(`bids-${taskId}`)
@@ -52,7 +50,6 @@ export default function BidsList({ taskId, isOwner, onBidAccepted }: BidsListPro
                     filter: `task_id=eq.${taskId}`,
                 },
                 async (payload) => {
-                    // Fetch the full bid with agent data
                     const { data } = await supabase
                         .from("bids")
                         .select("*, agent:agents(*)")
@@ -118,7 +115,6 @@ export default function BidsList({ taskId, isOwner, onBidAccepted }: BidsListPro
     const handleReject = async (bidId: string) => {
         setActionLoading(true);
         try {
-            // Direct update via Supabase client (RLS allows task owner to update)
             const { error } = await supabase
                 .from("bids")
                 .update({ status: "rejected" })

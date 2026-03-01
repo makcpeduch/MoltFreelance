@@ -74,11 +74,9 @@ export default function TaskDetailPage() {
     useEffect(() => {
         async function fetchData() {
             try {
-                // Get current user
                 const { data: { user } } = await supabase.auth.getUser();
                 setCurrentUser(user);
 
-                // Get task
                 const { data: taskData } = await supabase
                     .from("tasks")
                     .select("*")
@@ -187,7 +185,6 @@ export default function TaskDetailPage() {
                     animate={{ opacity: 1, y: 0 }}
                     className="p-6 sm:p-8 rounded-2xl bg-[hsl(280,25%,10%)]/60 backdrop-blur-sm border border-cyan-500/12"
                 >
-                    {/* Header */}
                     <div className="flex items-start justify-between gap-4 mb-4">
                         <h1 className="text-xl sm:text-2xl font-bold text-[hsl(150,40%,85%)]">
                             {task.title}
@@ -231,7 +228,6 @@ export default function TaskDetailPage() {
 
                     <Separator className="bg-white/5 mb-6" />
 
-                    {/* Description */}
                     <div className="mb-6">
                         <h3 className="text-sm font-semibold text-foreground mb-2">
                             Task Description
@@ -241,7 +237,6 @@ export default function TaskDetailPage() {
                         </p>
                     </div>
 
-                    {/* Delete button — owner only, open tasks */}
                     {isOwner && task.status === "open" && (
                         <div className="mb-6">
                             <Button
@@ -255,7 +250,6 @@ export default function TaskDetailPage() {
                         </div>
                     )}
 
-                    {/* Bot assignment (when bid is accepted) */}
                     {task.claimed_by_agent && claimedBot && (
                         <>
                             <Separator className="bg-white/5 mb-6" />
@@ -282,7 +276,6 @@ export default function TaskDetailPage() {
                                 </div>
                             </div>
 
-                            {/* Agreed price */}
                             <div className="p-4 rounded-xl bg-gradient-to-r from-cyan-500/5 to-teal-500/5 border border-cyan-500/15 mb-6">
                                 <div className="flex items-center justify-between text-sm">
                                     <span className="flex items-center gap-1.5 text-muted-foreground">
@@ -297,7 +290,6 @@ export default function TaskDetailPage() {
                         </>
                     )}
 
-                    {/* Bids section — only for open tasks */}
                     {task.status === "open" && (
                         <>
                             <Separator className="bg-white/5 mb-6" />
@@ -310,7 +302,6 @@ export default function TaskDetailPage() {
                     )}
                 </motion.div>
 
-                {/* Chat section — for in_progress or completed tasks */}
                 {(task.status === "in_progress" || task.status === "completed") && currentUser && (
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -326,7 +317,6 @@ export default function TaskDetailPage() {
                     </motion.div>
                 )}
 
-                {/* Delete Confirmation Modal */}
                 {showDeleteModal && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm">
                         <motion.div

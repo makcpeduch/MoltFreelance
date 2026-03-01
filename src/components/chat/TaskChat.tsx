@@ -31,7 +31,6 @@ export default function TaskChat({ taskId, currentUser, agentDeveloperId }: Task
         }, 100);
     }, []);
 
-    // Fetch messages
     useEffect(() => {
         async function fetchMessages() {
             const { data, error } = await supabase
@@ -58,7 +57,6 @@ export default function TaskChat({ taskId, currentUser, agentDeveloperId }: Task
         fetchMessages();
     }, [taskId, supabase, scrollToBottom]);
 
-    // Realtime subscription
     useEffect(() => {
         const channel = supabase
             .channel(`chat-${taskId}`)
@@ -71,7 +69,6 @@ export default function TaskChat({ taskId, currentUser, agentDeveloperId }: Task
                     filter: `task_id=eq.${taskId}`,
                 },
                 async (payload) => {
-                    // Fetch full message with sender
                     const { data } = await supabase
                         .from("chat_messages")
                         .select("*, sender:profiles(username, full_name)")
@@ -88,7 +85,6 @@ export default function TaskChat({ taskId, currentUser, agentDeveloperId }: Task
                         } as ChatMessage & { sender_name?: string };
 
                         setMessages((prev) => {
-                            // Avoid duplicates
                             if (prev.some((m) => m.id === msg.id)) return prev;
                             return [...prev, msg];
                         });
@@ -118,7 +114,7 @@ export default function TaskChat({ taskId, currentUser, agentDeveloperId }: Task
 
         if (error) {
             console.error("Failed to send:", error);
-            setInput(content); // Restore on failure
+            setInput(content);
         }
 
         setSending(false);
@@ -143,7 +139,6 @@ export default function TaskChat({ taskId, currentUser, agentDeveloperId }: Task
 
     return (
         <div className="flex flex-col rounded-xl bg-[hsl(280,25%,10%)]/60 backdrop-blur-sm border border-cyan-500/15 overflow-hidden">
-            {/* Header */}
             <div className="flex items-center gap-2 px-4 py-3 border-b border-white/5 bg-white/[0.02]">
                 <MessageCircle className="w-4 h-4 text-cyan-400" />
                 <h3 className="text-sm font-semibold text-[hsl(150,40%,85%)]">
@@ -155,7 +150,6 @@ export default function TaskChat({ taskId, currentUser, agentDeveloperId }: Task
                 </div>
             </div>
 
-            {/* Messages */}
             <div
                 ref={scrollRef}
                 className="flex-1 p-4 space-y-3 overflow-y-auto min-h-[300px] max-h-[500px] scrollbar-thin"
@@ -185,7 +179,6 @@ export default function TaskChat({ taskId, currentUser, agentDeveloperId }: Task
                                     className={`flex ${own ? "justify-end" : "justify-start"}`}
                                 >
                                     <div className={`max-w-[75%] ${own ? "items-end" : "items-start"} flex flex-col gap-1`}>
-                                        {/* Sender label */}
                                         <div className={`flex items-center gap-1.5 px-1 ${own ? "flex-row-reverse" : ""}`}>
                                             {botDev ? (
                                                 <Bot className="w-3 h-3 text-cyan-400" />
@@ -199,11 +192,10 @@ export default function TaskChat({ taskId, currentUser, agentDeveloperId }: Task
                                                 {formatTime(msg.created_at)}
                                             </span>
                                         </div>
-                                        {/* Bubble */}
                                         <div
                                             className={`px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed ${own
-                                                    ? "bg-gradient-to-r from-cyan-500/20 to-teal-500/20 border border-cyan-500/20 text-foreground rounded-br-md"
-                                                    : "bg-[hsl(280,20%,8%)] border border-white/5 text-foreground rounded-bl-md"
+                                                ? "bg-gradient-to-r from-cyan-500/20 to-teal-500/20 border border-cyan-500/20 text-foreground rounded-br-md"
+                                                : "bg-[hsl(280,20%,8%)] border border-white/5 text-foreground rounded-bl-md"
                                                 }`}
                                         >
                                             {msg.content}
@@ -216,7 +208,6 @@ export default function TaskChat({ taskId, currentUser, agentDeveloperId }: Task
                 )}
             </div>
 
-            {/* Input */}
             <div className="p-3 border-t border-white/5 bg-white/[0.01]">
                 <div className="flex items-center gap-2">
                     <input

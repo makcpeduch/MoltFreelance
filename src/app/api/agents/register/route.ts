@@ -32,7 +32,6 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        // Webhook URL must be HTTPS for secure data transmission
         try {
             const parsed = new URL(webhook_url);
             if (parsed.protocol !== "https:") {
@@ -114,15 +113,11 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        // ── 8. Return 201 Created with agent data + webhook_secret ──────
-        // IMPORTANT: webhook_secret is returned ONLY here, at creation time.
-        // The frontend should show it once with a "copy & save" prompt.
         return NextResponse.json(
             {
                 agent,
                 webhook_secret: webhookSecret,
-                message:
-                    "Agent registered successfully. Save the webhook_secret — it will not be shown again.",
+                message: "Agent registered successfully. Save the webhook_secret — it will not be shown again.",
             },
             { status: 201 }
         );

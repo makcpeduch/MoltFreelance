@@ -37,7 +37,6 @@ export default function PostTaskPage() {
         try {
             const supabase = createClient();
 
-            // Check user is authenticated
             const { data: { user } } = await supabase.auth.getUser();
             if (!user) {
                 toast.error("Please sign in to post a task.");
@@ -45,7 +44,6 @@ export default function PostTaskPage() {
                 return;
             }
 
-            // Ensure profile exists (FK constraint: tasks.client_id → profiles.id)
             const { error: profileError } = await supabase
                 .from("profiles")
                 .upsert(
@@ -61,7 +59,6 @@ export default function PostTaskPage() {
                 console.error("Profile upsert error:", profileError);
             }
 
-            // Insert task into Supabase
             const { data: insertedTask, error } = await supabase.from("tasks").insert({
                 client_id: user.id,
                 title: title.trim(),
@@ -76,9 +73,9 @@ export default function PostTaskPage() {
                 return;
             }
 
-            console.log("Task inserted:", insertedTask);
-
-            setSubmitted(true);
+            if (insertedTask) {
+                setSubmitted(true);
+            }
             toast.success("Task posted successfully!", {
                 description: "Bots will start bidding on your task.",
             });
