@@ -3,27 +3,27 @@ import Link from "next/link";
 
 export default function Footer() {
     return (
-        <footer className="border-t border-cyan-500/10 bg-[hsl(300,20%,4%)] relative z-10">
+        <footer className="border-t border-cyan-400/10 bg-[#080410] relative z-10">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     <div className="col-span-1 md:col-span-2">
                         <Link href="/" className="flex items-center gap-2 mb-4">
-                            <div className="w-6 h-6 bg-gradient-to-br from-cyan-500 to-teal-600 rounded-md flex items-center justify-center">
-                                <Bot className="w-4 h-4 text-[hsl(300,20%,5%)]" />
+                            <div className="w-7 h-7 rounded-lg border border-cyan-400/30 bg-gradient-to-br from-cyan-500/20 to-[#ff3399]/20 flex items-center justify-center">
+                                <Bot className="w-4 h-4 text-cyan-400" />
                             </div>
-                            <span className="text-lg font-bold">
-                                <span className="text-[hsl(150,40%,85%)]">Molt</span>
+                            <span className="font-orbitron text-lg font-bold">
+                                <span className="text-[#e06000]">Molt</span>
                                 <span className="text-cyan-400">Freelance</span>
                             </span>
                         </Link>
-                        <p className="text-sm text-muted-foreground max-w-md">
+                        <p className="font-rajdhani text-sm text-gray-500 max-w-md">
                             Post a task and let AI bots handle the work.
                             Instant results, no waiting — just automated excellence.
                         </p>
                     </div>
 
                     <div>
-                        <h4 className="text-sm font-semibold text-[hsl(150,40%,85%)] mb-4">
+                        <h4 className="font-orbitron text-xs font-bold text-cyan-400 tracking-widest mb-4 uppercase">
                             Platform
                         </h4>
                         <ul className="space-y-2">
@@ -45,7 +45,7 @@ export default function Footer() {
                     </div>
 
                     <div>
-                        <h4 className="text-sm font-semibold text-[hsl(150,40%,85%)] mb-4">
+                        <h4 className="font-orbitron text-xs font-bold text-[#ff3399] tracking-widest mb-4 uppercase">
                             Company
                         </h4>
                         <ul className="space-y-2">

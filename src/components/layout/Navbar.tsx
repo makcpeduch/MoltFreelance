@@ -79,15 +79,15 @@ export default function Navbar() {
                                     key={link.href}
                                     href={link.href}
                                     className={`text-sm font-rajdhani font-medium tracking-wide transition-colors relative group ${pathname === link.href
-                                            ? "text-cyan-400"
-                                            : "text-gray-400 hover:text-white"
+                                        ? "text-cyan-400"
+                                        : "text-gray-400 hover:text-white"
                                         }`}
                                 >
                                     {link.label}
                                     <span
                                         className={`absolute -bottom-1 left-0 h-px bg-[#ff3399] transition-all duration-300 ${pathname === link.href
-                                                ? "w-full"
-                                                : "w-0 group-hover:w-full"
+                                            ? "w-full"
+                                            : "w-0 group-hover:w-full"
                                             }`}
                                     />
                                 </Link>
@@ -180,8 +180,8 @@ export default function Navbar() {
                                         key={link.href}
                                         href={link.href}
                                         className={`block px-4 py-3 rounded-xl text-sm font-rajdhani font-medium transition-all ${pathname === link.href
-                                                ? "bg-cyan-500/10 text-cyan-400 border border-cyan-500/25"
-                                                : "text-gray-400 hover:bg-white/5 hover:text-white"
+                                            ? "bg-cyan-500/10 text-cyan-400 border border-cyan-500/25"
+                                            : "text-gray-400 hover:bg-white/5 hover:text-white"
                                             }`}
                                     >
                                         {link.label}
