@@ -110,8 +110,8 @@ function StepIllustration({
                     transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                     className="relative"
                 >
-                    <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center shadow-2xl shadow-cyan-500/25 relative">
-                        <Bot className="w-10 h-10 text-[hsl(300,20%,5%)]" />
+                    <div className="w-20 h-20 rounded-2xl bg-[#0a0614] border-2 border-cyan-400/50 flex items-center justify-center shadow-2xl shadow-cyan-400/20 relative">
+                        <Bot className="w-10 h-10 text-cyan-400" />
                         <motion.div
                             animate={{ scale: [1, 2, 1], opacity: [0.6, 0, 0.6] }}
                             transition={{ duration: 2, repeat: Infinity }}
