@@ -59,7 +59,7 @@ export default function Navbar() {
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16">
-                        <Link href="/" className="flex items-center gap-2 group">
+                        <Link href="/" className="flex items-center gap-2 group mt-1">
                             <motion.div
                                 whileHover={{ scale: 1.1, rotate: 5 }}
                                 className="w-8 h-8 rounded-lg border border-cyan-400/30 bg-gradient-to-br from-cyan-500/20 to-[#ff3399]/20 flex items-center justify-center glow-cyan"
